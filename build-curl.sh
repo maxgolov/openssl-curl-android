@@ -4,8 +4,7 @@ export TOOLCHAIN=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/$HOST_TAG
 PATH=$TOOLCHAIN/bin:$PATH
 
 # curl common configuration arguments
-ARGUMENTS=\
-    --disable-shared \
+ARGUMENTS="--disable-shared \
     --disable-verbose \
     --disable-manual \
     --disable-crypto-auth \
@@ -33,7 +32,7 @@ ARGUMENTS=\
     --disable-smtp \
     --disable-smtps \
     --disable-telnet \
-    --disable-tftp
+    --disable-tftp"
 
 mkdir -p build/curl
 cd curl
@@ -62,16 +61,17 @@ make clean
 mkdir -p ../build/curl/$ANDROID_ARCH
 cp -R $PWD/build/$ANDROID_ARCH ../build/curl/
 
-# arm
+# armv7a
+export TARGET_HOST1=arm-linux-androideabi
 export TARGET_HOST=armv7a-linux-androideabi
 export ANDROID_ARCH=armeabi-v7a
-export AR=$TOOLCHAIN/bin/$TARGET_HOST-ar
-export AS=$TOOLCHAIN/bin/$TARGET_HOST-as
-export CC=$TOOLCHAIN/bin/$TARGET_HOST$MIN_SDK_VERSION-clang
-export CXX=$TOOLCHAIN/bin/$TARGET_HOST$MIN_SDK_VERSION-clang++
-export LD=$TOOLCHAIN/bin/$TARGET_HOST-ld
-export RANLIB=$TOOLCHAIN/bin/$TARGET_HOST-ranlib
-export STRIP=$TOOLCHAIN/bin/$TARGET_HOST-strip
+export AR=$TOOLCHAIN/bin/${TARGET_HOST1}-ar
+export AS=$TOOLCHAIN/bin/${TARGET_HOST1}-as
+export CC=$TOOLCHAIN/bin/${TARGET_HOST}${MIN_SDK_VERSION}-clang
+export CXX=$TOOLCHAIN/bin/${TARGET_HOST}${$MIN_SDK_VERSION}-clang++
+export LD=$TOOLCHAIN/bin/${TARGET_HOST1}-ld
+export RANLIB=$TOOLCHAIN/bin/${TARGET_HOST1}-ranlib
+export STRIP=$TOOLCHAIN/bin/${TARGET_HOST1}-strip
 export SSL_DIR=$PWD/../openssl/build/$ANDROID_ARCH
 
 ./configure --host=$TARGET_HOST \
