@@ -25,8 +25,7 @@ export ANDROID_NDK_ROOT=${ANDROID_NDK_HOME}
 export MIN_SDK_VERSION=29
 export HOST_TAG=linux-x86_64 # see https://developer.android.com/ndk/guides/other_build_systems#overview
 
-chmod +x ./build.sh
-./build.sh
+source ./build.sh
 ```
 
 All compiled libs are located in `build/openssl` and `build/curl` directory.
